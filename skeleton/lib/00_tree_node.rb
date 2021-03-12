@@ -13,7 +13,7 @@ class PolyTreeNode
         if !children.include?(self)
             add_child(self)
         end
-
+        
     end 
 
     def add_child(node)
