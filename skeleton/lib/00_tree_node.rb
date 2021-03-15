@@ -55,3 +55,14 @@ class PolyTreeNode
 
     end
 end
+
+class Searchable
+
+    def dfs(target_val)
+        debugger
+        #if the val @ node = target_val then return node
+        return self if self.value == target_val
+
+    end
+
+end
