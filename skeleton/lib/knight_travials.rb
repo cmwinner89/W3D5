@@ -5,8 +5,13 @@ class KnightPathFinder
     
     def self.valid_moves(pos)
         possible_moves = []
-        possible_moves << [pos[0] + 2, pos[1] + 1] 
-        possible_movies << [pos[0] + 1, pos[1] + 2]
+
+        while (pos[0] < 8 && pos[0] > 0) && (pos[1] < 8 && pos[1] > 0) 
+
+            possible_moves << [pos[0] + 2, pos[1] + 1] 
+            possible_movies << [pos[0] + 1, pos[1] + 2]
+
+        end
         possible_moves 
 
 
@@ -18,15 +23,27 @@ class KnightPathFinder
     def initialize(pos)
         @pos = pos
         @root_node = PolyTreeNode.new(pos)
-        
+        @considered_pos = [pos]
         build_move_tree
     end
 
-    def new_move_positions
+    def new_move_positions(pos)
         #filter down valid_moves and exclude places we've been before
         #keeping track of places we've visited
         #use in build move tree
         #instance variable 
+        traveled = []
+        new_moves = []
+        @considered_pos << pos
+        traveled = considered_pos
+        @considered_pos = self.valid_moves(pos)
+
+        # self.valid_moves.each do |position|
+        #     if !considered_pos.include(position)
+        #         new_moves << position
+        #     end
+        # end
+        # @considered_pos = new_moves
     end 
 
     def build_move_tree
