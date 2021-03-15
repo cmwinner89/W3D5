@@ -1,9 +1,43 @@
 require "byebug"
 
+module Searchable
+
+    def dfs(target = nil, &prc)
+        raise "Need a proc or target" if [target, prc].none?
+        prc ||= Proc.new { |node| node.value == target}
+
+        return self if prc.call(self)
+
+        children.each do |child|
+            result = child.dfs(&prc)
+            return result unless result.nil?
+        end 
+        nil
+    end 
+
+    def bfs(target = nil, &prc)
+        raise "Need a proc or target" if [target, prc].none?
+        prc ||= Proc.new {|node| node.value == target}
+
+        nodes = [self]
+        until nodes.empty?
+            node = nodes.shift
+
+            return node if prc.call(node)
+            nodes.concat(node.children)
+        end 
+        nil
+    end 
+
+end
+
+
 class PolyTreeNode
+    include Searchable
 
 
-    attr_reader :value, :parent, :children
+    attr_reader :parent, :children
+    attr_accessor :value 
 
     def initialize(value=0, children = [])
         @value = value
