@@ -21,6 +21,6 @@ class PolyTreeNode
     end
 
     def remove_child(node)
-        node.parent = self 
+        node.parent = self
     end
 end
